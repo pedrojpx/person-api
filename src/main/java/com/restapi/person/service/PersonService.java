@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +33,7 @@ public class PersonService {
 		Person toSave = personMapper.toModel(personDTO);
 		
 		Person saved = repo.save(toSave);
-		return MessageResponseDTO
-				.builder() //abre modo builder
-				.message("saved person with ID: " + saved.getId()) // seta a msg
-				.build(); //fecha modo builder
+		return createResponseMessage(saved.getId(), "Created person with id ");
 	}
 
 	public List<PersonDTO> listAll() {
@@ -52,6 +51,21 @@ public class PersonService {
 	public void delete(Long id) throws PersonNotFoundException {
 		Person p = checkIfExists(id);
 		repo.deleteById(id);
+	}
+
+	public MessageResponseDTO updateById(Long id, @Valid PersonDTO dto) throws PersonNotFoundException {
+		Person p = checkIfExists(id);
+		
+		Person updated = repo.save(personMapper.toModel(dto));
+		
+		return createResponseMessage(updated.getId(), "Updated person with id ");
+	}
+
+	private MessageResponseDTO createResponseMessage(Long id, String msg) {
+		return MessageResponseDTO
+				.builder()
+				.message(msg + id)
+				.build();
 	}
 	
 	private Person checkIfExists(Long id) throws PersonNotFoundException {
