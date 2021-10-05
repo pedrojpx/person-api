@@ -1,5 +1,7 @@
 package com.restapi.person.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restapi.person.dto.request.PersonDTO;
 import com.restapi.person.dto.response.MessageResponseDTO;
-import com.restapi.person.entity.Person;
 import com.restapi.person.service.PersonService;
 
 @RestController
@@ -28,7 +30,7 @@ public class PersonController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) //o defaul é 200, mas como criou um item, o certo é 201
-	public MessageResponseDTO savePerson(@RequestBody Person person) {
+	public MessageResponseDTO savePerson(@RequestBody @Valid PersonDTO person) { //@valid manda o spring validar o PersonDTO
 		return service.savePerson(person);
 	}
 	
