@@ -21,13 +21,17 @@ import com.restapi.person.dto.response.MessageResponseDTO;
 import com.restapi.person.exception.PersonNotFoundException;
 import com.restapi.person.service.PersonService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/api/v1/people")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 	
-	@Autowired
-	private PersonService service;
-	//As vezes é mais vantajoso ter o autowired em um construtor que tenha o repo como argumento, isso facilitar na hora de criar mocks para testes
+	//substituído pelo @AllArgsContructor
+//	@Autowired
+//	private PersonService service;
+//	//As vezes é mais vantajoso ter o autowired em um construtor que tenha o repo como argumento, isso facilitar na hora de criar mocks para testes
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) //o defaul é 200, mas como criou um item, o certo é 201

@@ -16,7 +16,10 @@ import com.restapi.person.exception.PersonNotFoundException;
 import com.restapi.person.mapper.PersonMapper;
 import com.restapi.person.repository.PersonRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 	
 	
@@ -24,10 +27,11 @@ public class PersonService {
 	
 	private final PersonMapper personMapper = PersonMapper.INSTANCE;
 	
-	@Autowired
-	public PersonService (PersonRepository repo) {
-		this.repo = repo;
-	}
+	//substituído por @AllArgsConstructor
+//	@Autowired
+//	public PersonService (PersonRepository repo) {
+//		this.repo = repo;
+//	}
 	
 	public MessageResponseDTO savePerson(PersonDTO personDTO) {
 		Person toSave = personMapper.toModel(personDTO);
