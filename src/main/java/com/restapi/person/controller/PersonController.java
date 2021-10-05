@@ -1,5 +1,7 @@
 package com.restapi.person.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +25,15 @@ public class PersonController {
 	private PersonService service;
 	//As vezes é mais vantajoso ter o autowired em um construtor que tenha o repo como argumento, isso facilitar na hora de criar mocks para testes
 	
-	@GetMapping
-	public String getBook() {
-		return "API Test";
-	}
-	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) //o defaul é 200, mas como criou um item, o certo é 201
 	public MessageResponseDTO savePerson(@RequestBody @Valid PersonDTO person) { //@valid manda o spring validar o PersonDTO
 		return service.savePerson(person);
+	}
+	
+	@GetMapping
+	public List<PersonDTO> listAll() {
+		return service.listAll();
 	}
 	
 }

@@ -1,5 +1,8 @@
 package com.restapi.person.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,13 @@ public class PersonService {
 				.builder() //abre modo builder
 				.message("saved person with ID: " + saved.getId()) // seta a msg
 				.build(); //fecha modo builder
+	}
+
+	public List<PersonDTO> listAll() {
+		List<Person> allPeople = repo.findAll();
+		return allPeople.stream()
+				.map(personMapper::toDTO)
+				.collect(Collectors.toList());
 	}
 
 }
