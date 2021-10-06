@@ -10,13 +10,15 @@ import javax.persistence.Id;
 
 import com.restapi.person.enums.PhoneType;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-//@AllArgsConstructor
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Phone {
 
